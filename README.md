@@ -1,2 +1,4 @@
 # PowerAmcOrientedObjectModelingLanguage
-" PowerAmcOrientedObjectModelingLanguage " (PAOOML) est un projet que j'ai demarre suite aux difficultes de modelisation de mes classes uml.  On peut exporter directement les classes générées dans le dossier Models de Visual Studio. Les classes generrees sont compatibles avec l'ORM Entity Framework Core a 6 et plus
+" PowerAmcOrientedObjectModelingLanguage " (PAOOML) est un projet que j'ai demarre suite aux difficultes de modelisation de mes classes uml.
+
+Pour le moment je ne l'adapte qu'a la version CSharp 8 et on peut exporter directement les classes générées dans le dossier Models de votre projet Visual Studio. Les classes generrees sont compatibles avec l'ORM Entity Framework Core 6
