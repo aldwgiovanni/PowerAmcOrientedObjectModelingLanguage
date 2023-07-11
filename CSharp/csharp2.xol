@@ -1198,12 +1198,12 @@ ENTITIES
 <a:Name>roleANew</a:Name>
 <a:CreationDate>0</a:CreationDate>
 <a:Creator/>
-<a:ModificationDate>1685445308</a:ModificationDate>
+<a:ModificationDate>1685982764</a:ModificationDate>
 <a:Modifier>hashcods</a:Modifier>
 <a:Comment>Indique que le rôle A va générer un attribut dans la classe associée qui cache le même attribut que la classe parent.</a:Comment>
 <a:GlobalObjectID/>
 <a:TargetCategory.Type>1</a:TargetCategory.Type>
-<a:ExtendedAttributeTargetItem.Value>true</a:ExtendedAttributeTargetItem.Value>
+<a:ExtendedAttributeTargetItem.Value>false</a:ExtendedAttributeTargetItem.Value>
 <a:ValidateDataType>0</a:ValidateDataType>
 </o:ExtendedAttributeTargetItem>
 <o:ExtendedAttributeTargetItem Id="o52">
@@ -1211,12 +1211,12 @@ ENTITIES
 <a:Name>roleBNew</a:Name>
 <a:CreationDate>0</a:CreationDate>
 <a:Creator/>
-<a:ModificationDate>1685445297</a:ModificationDate>
+<a:ModificationDate>1685982774</a:ModificationDate>
 <a:Modifier>hashcods</a:Modifier>
 <a:Comment>Indique que le rôle B va générer un attribut dans la classe associée qui cache le même attribut que la classe parent.</a:Comment>
 <a:GlobalObjectID/>
 <a:TargetCategory.Type>1</a:TargetCategory.Type>
-<a:ExtendedAttributeTargetItem.Value>true</a:ExtendedAttributeTargetItem.Value>
+<a:ExtendedAttributeTargetItem.Value>false</a:ExtendedAttributeTargetItem.Value>
 <a:ValidateDataType>0</a:ValidateDataType>
 </o:ExtendedAttributeTargetItem>
 </c:Categories>
@@ -1900,7 +1900,7 @@ no
 <a:TemplateTargetItem.Value>.if (%roleBContainerType%)
 [%roleBVisibility% ][%roleBFlags% ]%roleBContainerEx%[%roleBNullable%] %roleBCode%[%isReflexive%?B] {get;set;}[%isRoleBNew%?%roleBNewKeyWord%]\n
 .if(%isBidirectional%) and (%AssociationClass% != null)
-%assClassContainerExNavigable%[%isRoleBNew%?%roleBNewKeyWord%]
+%assClassContainerExNavigable%
 .endif
 .else
 [%roleBVisibility% ][%roleBFlags% ]%AssociationClass.qualifiedCode%\[\] %Code%[%isReflexive%?B] {get;set;}
@@ -1908,7 +1908,7 @@ no
 </a:TemplateTargetItem.Value>
 <a:CreationDate>0</a:CreationDate>
 <a:Creator/>
-<a:ModificationDate>1685445184</a:ModificationDate>
+<a:ModificationDate>1685468271</a:ModificationDate>
 <a:Modifier>hashcods</a:Modifier>
 <a:GlobalObjectID/>
 <a:TargetCategory.Type>1</a:TargetCategory.Type>
@@ -2530,17 +2530,19 @@ true
 <a:Name>asscClassDefinition</a:Name>
 <a:TemplateTargetItem.Value>.// see roleADefinition
 .if (%RoleANavigability%) and (%RoleAMigratedAttribute% == null)
+\[DatabaseGenerated(DatabaseGeneratedOption.None)]
 public %.FL:ClassA.PrimaryIdentifier.Attribute.DataType%[%roleANullable%] %ClassA.Code%%ClassA.PrimaryIdentifier.Attribute.Code% {get;set;}
 %roleAVisibility% %ClassA.qualifiedCode% %roleACode% {get;set;}[%isRoleANew%?%roleANewKeyWord%]
 .endif(\n)
 .// see roleBDefinition
 .if (%RoleBNavigability%) and (%RoleBMigratedAttribute% == null)
+\[DatabaseGenerated(DatabaseGeneratedOption.None)]
 public %.FL:ClassB.PrimaryIdentifier.Attribute.DataType%[%roleBNullable%] %ClassB.Code%%ClassB.PrimaryIdentifier.Attribute.Code% {get;set;}
 %roleBVisibility% %ClassB.qualifiedCode% %roleBCode% {get;set;}[%isRoleBNew%?%roleBNewKeyWord%]
 .endif</a:TemplateTargetItem.Value>
 <a:CreationDate>0</a:CreationDate>
 <a:Creator/>
-<a:ModificationDate>1685446632</a:ModificationDate>
+<a:ModificationDate>1685980511</a:ModificationDate>
 <a:Modifier>hashcods</a:Modifier>
 <a:GlobalObjectID/>
 <a:TargetCategory.Type>1</a:TargetCategory.Type>
@@ -2549,14 +2551,24 @@ public %.FL:ClassB.PrimaryIdentifier.Attribute.DataType%[%roleBNullable%] %Class
 <a:ObjectID>7DCAA99A-07FB-4899-85A0-1EEFDDAF83B4</a:ObjectID>
 <a:Name>roleADefinition</a:Name>
 <a:TemplateTargetItem.Value>.if (%RoleANavigability%) and (%RoleAMigratedAttribute% == null) and (%ClassA.IsSelected%)
+.set_value(_siSFK,false)
+.foreach_item(AttachedRules)
+.if (%Code% == &quot;SFK&quot;)
+.set_value(_siSFK,true)
+.endif
+.next
 .if (%AssociationClass% == null)
+.if(%_siSFK% == false)
 public %.FL:ClassA.PrimaryIdentifier.Attribute.DataType%[%roleANullable%] %ClassA.Code%%ClassA.PrimaryIdentifier.Attribute.Code% {get;set;}\n
+.else
+public %.FL:ClassA.PrimaryIdentifier.Attribute.DataType%[%roleANullable%] %roleACode%%ClassA.PrimaryIdentifier.Attribute.Code% {get;set;}\n
+.endif
 .endif
 %roleAMigrateDefinition%
 .endif</a:TemplateTargetItem.Value>
 <a:CreationDate>0</a:CreationDate>
 <a:Creator/>
-<a:ModificationDate>1685429272</a:ModificationDate>
+<a:ModificationDate>1688660702</a:ModificationDate>
 <a:Modifier>hashcods</a:Modifier>
 <a:GlobalObjectID/>
 <a:TargetCategory.Type>1</a:TargetCategory.Type>
